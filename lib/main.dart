@@ -1,118 +1,164 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'findFpb.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class _MyAppState extends State<MyApp> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _bilangan1Controller = TextEditingController();
+  final TextEditingController _bilangan2Controller = TextEditingController();
+  String _resultText = "";
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    List<List<int>> array2D = generateArrayData();
+
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+      title: 'Array & FPB Demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Array & FPB Demo'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Isi List:",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              ListView(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                children: array2D
+                    .map(
+                      (row) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        child: Row(
+                          children: row
+                              .map(
+                                (value) => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                    '$value',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              Divider(thickness: 2),
+              Text(
+                "FPB Calculator",
+                style: TextStyle(fontSize: 18),
+              ),
+              Form(
+                key: _formKey,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _bilangan1Controller,
+                        decoration: InputDecoration(
+                          labelText: "Bilangan 1",
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter a number";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextFormField(
+                        controller: _bilangan2Controller,
+                        decoration: InputDecoration(
+                          labelText: "Bilangan 2",
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter a number";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final bilangan1 = int.tryParse(_bilangan1Controller.text);
+                  final bilangan2 = int.tryParse(_bilangan2Controller.text);
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Muhammad Zharfan Hakim - 1301213191',
-            ),
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+                  if (bilangan1 != null && bilangan2 != null) {
+                    int fpb = findFpb(bilangan1, bilangan2);
+                    setState(() {
+                      _resultText = "FPB dari $bilangan1 dan $bilangan2 = $fpb";
+                    });
+                  } else {
+                    setState(() {
+                      _resultText = "Please enter valid numbers.";
+                    });
+                  }
+                },
+                child: Text("Hitung FPB"),
+              ),
+              Text(
+                _resultText,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+List<List<int>> generateArrayData() {
+  List<List<int>> array2D = List.generate(4, (index) => []);
+
+  // Baris 1: 4 bilangan kelipatan 6 berurutan mulai dari 6
+  array2D[0] = List.generate(4, (index) => 6 * (index + 1));
+
+  // Baris 2: 5 bilangan ganjil berurutan mulai dari 3
+  array2D[1] = List.generate(5, (index) => 2 * index + 3);
+
+  // Baris 3: 6 bilangan pangkat tiga dari bilangan asli mulai dari 4
+  array2D[2] = List.generate(6, (index) => pow(index + 4, 3) as int);
+
+  // Baris 4: 7 bilangan asli berurutan beda 7 mulai dari 3
+  array2D[3] = List.generate(7, (index) => 3 + 7 * index);
+
+  return array2D;
+}
+
+List<Widget> getArrayWidgets(List<List<int>> array2D) {
+  List<Widget> widgets = [];
+  for (List<int> row in array2D) {
+    for (int value in row) {
+      widgets.add(Chip(label: Text("$value")));
+    }
+  }
+  return widgets;
 }
