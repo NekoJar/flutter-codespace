@@ -1,164 +1,127 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'findFpb.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _bilangan1Controller = TextEditingController();
-  final TextEditingController _bilangan2Controller = TextEditingController();
-  String _resultText = "";
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<List<int>> array2D = generateArrayData();
-
     return MaterialApp(
-      title: 'Array & FPB Demo',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Array & FPB Demo'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Isi List:",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              ListView(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: array2D
-                    .map(
-                      (row) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
-                        child: Row(
-                          children: row
-                              .map(
-                                (value) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Text(
-                                    '$value',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-              Divider(thickness: 2),
-              Text(
-                "FPB Calculator",
-                style: TextStyle(fontSize: 18),
-              ),
-              Form(
-                key: _formKey,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _bilangan1Controller,
-                        decoration: InputDecoration(
-                          labelText: "Bilangan 1",
-                        ),
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please enter a number";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _bilangan2Controller,
-                        decoration: InputDecoration(
-                          labelText: "Bilangan 2",
-                        ),
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please enter a number";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  final bilangan1 = int.tryParse(_bilangan1Controller.text);
-                  final bilangan2 = int.tryParse(_bilangan2Controller.text);
-
-                  if (bilangan1 != null && bilangan2 != null) {
-                    int fpb = findFpb(bilangan1, bilangan2);
-                    setState(() {
-                      _resultText = "FPB dari $bilangan1 dan $bilangan2 = $fpb";
-                    });
-                  } else {
-                    setState(() {
-                      _resultText = "Please enter valid numbers.";
-                    });
-                  }
-                },
-                child: Text("Hitung FPB"),
-              ),
-              Text(
-                _resultText,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-      ),
+      title: "Layout part 1",
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const MyHomePage(title: "Demo Layout part 1"),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-List<List<int>> generateArrayData() {
-  List<List<int>> array2D = List.generate(4, (index) => []);
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  // Baris 1: 4 bilangan kelipatan 6 berurutan mulai dari 6
-  array2D[0] = List.generate(4, (index) => 6 * (index + 1));
+  final String title;
 
-  // Baris 2: 5 bilangan ganjil berurutan mulai dari 3
-  array2D[1] = List.generate(5, (index) => 2 * index + 3);
-
-  // Baris 3: 6 bilangan pangkat tiga dari bilangan asli mulai dari 4
-  array2D[2] = List.generate(6, (index) => pow(index + 4, 3) as int);
-
-  // Baris 4: 7 bilangan asli berurutan beda 7 mulai dari 3
-  array2D[3] = List.generate(7, (index) => 3 + 7 * index);
-
-  return array2D;
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-List<Widget> getArrayWidgets(List<List<int>> array2D) {
-  List<Widget> widgets = [];
-  for (List<int> row in array2D) {
-    for (int value in row) {
-      widgets.add(Chip(label: Text("$value")));
-    }
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        "Welcome,",
+                        style: TextStyle(
+                          color: Color(0xFF7367F0),
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.25,
+                        ),
+                      ),
+                      Text(
+                        "1301213191 - MZharfanHakim",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF4B4B4B),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const CircleAvatar(
+                    radius: 20,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 35),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF4839EB), Color(0xFF7367F0)],
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    "Status tes TOEFL Anda:",
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "LULUS",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.25,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Listening\n   80", style: TextStyle(color: Colors.white, fontSize: 16)),
+                        Text("Structure\n   80", style: TextStyle(color: Colors.white, fontSize: 16)),
+                        Text("Reading\n   80", style: TextStyle(color: Colors.white, fontSize: 16)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              child: Text(
+                "Riwayat Tes",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.25,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
-  return widgets;
 }
