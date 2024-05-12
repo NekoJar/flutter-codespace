@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final data = const[{
+    "tgl": "02/03/2022", "nilai": "150"
+  },{
+    "tgl": "01/02/2022", "nilai": "140"
+  },{
+    "tgl": "12/01/2022", "nilai": "170"
+  },{
+    "tgl": "11/12/2021", "nilai": "110"
+  },{
+    "tgl": "10/11/2021", "nilai": "180"
+  },{
+    "tgl": "09/10/2021", "nilai": "190"
+  },{
+    "tgl": "08/09/2021", "nilai": "160"
+  },{
+    "tgl": "07/08/2021", "nilai": "155"
+  },{
+    "tgl": "06/07/2021", "nilai": "145"
+  },{
+    "tgl": "05/06/2021", "nilai": "140"
+  },];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 20,)
                 ],
               ),
             ),
@@ -117,6 +140,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.25,
                 ),
+              ),
+            ),
+            Container(
+              height: 300,
+              child: ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Tanggal tes:\nNilai:",
+                            style: TextStyle(color: Colors.blue, fontSize: 20),
+                          ),
+                          Text(
+                            data[index]["tgl"]! + '\n' + data[index]["nilai"]!,
+                            style: TextStyle(color: Colors.blue, fontSize: 20),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10), // Placed within the Column widget
+                    ],
+                  );
+                },
               ),
             )
           ],
