@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'tutorial_11-2.dart'; // Import halaman baru
 
 class Tutorial11Page extends StatelessWidget {
   const Tutorial11Page({Key? key}) : super(key: key);
@@ -10,34 +11,10 @@ class Tutorial11Page extends StatelessWidget {
         title: const Text('Tutorial 11-1'),
       ),
       body: PageView(
+        scrollDirection:
+            Axis.vertical, // Ubah scroll direction menjadi vertikal
         children: [
-          Container(
-            color: Colors.red,
-            child: const Center(
-              child: Text(
-                'Page 1',
-                style: TextStyle(fontSize: 24, color: Colors.white),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.green,
-            child: const Center(
-              child: Text(
-                'Page 2',
-                style: TextStyle(fontSize: 24, color: Colors.white),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.blue,
-            child: const Center(
-              child: Text(
-                'Page 3',
-                style: TextStyle(fontSize: 24, color: Colors.white),
-              ),
-            ),
-          ),
+          const Tutorial12Page(), // Page dengan ListView dan dialog formr
         ],
       ),
     );

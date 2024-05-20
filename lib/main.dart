@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'tutorial_11-1.dart'; // Import halaman baru
+import 'tutorial_11-1.dart';  // Import halaman baru
 
 void main() => runApp(const MyApp());
 
@@ -27,18 +27,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final data = const [
-    {"tgl": "02/03/2022", "nilai": "150"},
-    {"tgl": "01/02/2022", "nilai": "140"},
-    {"tgl": "12/01/2022", "nilai": "170"},
-    {"tgl": "11/12/2021", "nilai": "110"},
-    {"tgl": "10/11/2021", "nilai": "180"},
-    {"tgl": "09/10/2021", "nilai": "190"},
-    {"tgl": "08/09/2021", "nilai": "160"},
-    {"tgl": "07/08/2021", "nilai": "155"},
-    {"tgl": "06/07/2021", "nilai": "145"},
-    {"tgl": "05/06/2021", "nilai": "140"},
-  ];
+  final data = const[{
+    "tgl": "02/03/2022", "nilai": "150"
+  },{
+    "tgl": "01/02/2022", "nilai": "140"
+  },{
+    "tgl": "12/01/2022", "nilai": "170"
+  },{
+    "tgl": "11/12/2021", "nilai": "110"
+  },{
+    "tgl": "10/11/2021", "nilai": "180"
+  },{
+    "tgl": "09/10/2021", "nilai": "190"
+  },{
+    "tgl": "08/09/2021", "nilai": "160"
+  },{
+    "tgl": "07/08/2021", "nilai": "155"
+  },{
+    "tgl": "06/07/2021", "nilai": "145"
+  },{
+    "tgl": "05/06/2021", "nilai": "140"
+  },];
 
   @override
   Widget build(BuildContext context) {
@@ -113,15 +122,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Text("Listening\n   80",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16)),
-                        Text("Structure\n   80",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16)),
-                        Text("Reading\n   80",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16)),
+                        Text("Listening\n   80", style: TextStyle(color: Colors.white, fontSize: 16)),
+                        Text("Structure\n   80", style: TextStyle(color: Colors.white, fontSize: 16)),
+                        Text("Reading\n   80", style: TextStyle(color: Colors.white, fontSize: 16)),
                       ],
                     ),
                   ),
@@ -156,13 +159,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           Text(
                             data[index]["tgl"]! + '\n' + data[index]["nilai"]!,
-                            style: const TextStyle(
-                                color: Colors.blue, fontSize: 20),
+                            style: const TextStyle(color: Colors.blue, fontSize: 20),
                           ),
                         ],
                       ),
-                      const SizedBox(
-                          height: 10), // Placed within the Column widget
+                      const SizedBox(height: 10), // Placed within the Column widget
                     ],
                   );
                 },
@@ -174,8 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const Tutorial11Page()),
+                  MaterialPageRoute(builder: (context) => const Tutorial11Page()),
                 );
               },
               child: const Text(
