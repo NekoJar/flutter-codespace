@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'tutorial_11-1.dart'; // Import halaman baru
 
 void main() => runApp(const MyApp());
 
@@ -26,27 +27,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final data = const[{
-    "tgl": "02/03/2022", "nilai": "150"
-  },{
-    "tgl": "01/02/2022", "nilai": "140"
-  },{
-    "tgl": "12/01/2022", "nilai": "170"
-  },{
-    "tgl": "11/12/2021", "nilai": "110"
-  },{
-    "tgl": "10/11/2021", "nilai": "180"
-  },{
-    "tgl": "09/10/2021", "nilai": "190"
-  },{
-    "tgl": "08/09/2021", "nilai": "160"
-  },{
-    "tgl": "07/08/2021", "nilai": "155"
-  },{
-    "tgl": "06/07/2021", "nilai": "145"
-  },{
-    "tgl": "05/06/2021", "nilai": "140"
-  },];
+  final data = const [
+    {"tgl": "02/03/2022", "nilai": "150"},
+    {"tgl": "01/02/2022", "nilai": "140"},
+    {"tgl": "12/01/2022", "nilai": "170"},
+    {"tgl": "11/12/2021", "nilai": "110"},
+    {"tgl": "10/11/2021", "nilai": "180"},
+    {"tgl": "09/10/2021", "nilai": "190"},
+    {"tgl": "08/09/2021", "nilai": "160"},
+    {"tgl": "07/08/2021", "nilai": "155"},
+    {"tgl": "06/07/2021", "nilai": "145"},
+    {"tgl": "05/06/2021", "nilai": "140"},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -100,13 +92,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     "Status tes TOEFL Anda:",
                     style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
-                  SizedBox(height: 8),
-                  Text(
+                  const SizedBox(height: 8),
+                  const Text(
                     "LULUS",
                     style: TextStyle(
                       color: Colors.white,
@@ -115,24 +107,30 @@ class _MyHomePageState extends State<MyHomePage> {
                       letterSpacing: 0.25,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Listening\n   80", style: TextStyle(color: Colors.white, fontSize: 16)),
-                        Text("Structure\n   80", style: TextStyle(color: Colors.white, fontSize: 16)),
-                        Text("Reading\n   80", style: TextStyle(color: Colors.white, fontSize: 16)),
+                      children: const [
+                        Text("Listening\n   80",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 16)),
+                        Text("Structure\n   80",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 16)),
+                        Text("Reading\n   80",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 16)),
                       ],
                     ),
                   ),
-                  SizedBox(height: 20,)
+                  const SizedBox(height: 20)
                 ],
               ),
             ),
             Container(
-              child: Text(
+              child: const Text(
                 "Riwayat Tes",
                 style: TextStyle(
                   color: Colors.black,
@@ -152,22 +150,43 @@ class _MyHomePageState extends State<MyHomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(
+                          const Text(
                             "Tanggal tes:\nNilai:",
                             style: TextStyle(color: Colors.blue, fontSize: 20),
                           ),
                           Text(
                             data[index]["tgl"]! + '\n' + data[index]["nilai"]!,
-                            style: TextStyle(color: Colors.blue, fontSize: 20),
+                            style: const TextStyle(
+                                color: Colors.blue, fontSize: 20),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10), // Placed within the Column widget
+                      const SizedBox(
+                          height: 10), // Placed within the Column widget
                     ],
                   );
                 },
               ),
-            )
+            ),
+            // Navigation text
+            const SizedBox(height: 20),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Tutorial11Page()),
+                );
+              },
+              child: const Text(
+                "Go to Tutorial 11-1",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 20,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
           ],
         ),
       ),
